@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-</head>
-<body>
-    
-</body>
-</html>
 <script>
 // declare global variables
 let binaryGap = 0;
@@ -35,7 +21,6 @@ if(Number.isInteger(N)){
     // Check if int is in the given interval 
     if(N => minN && N <= maxN){
         bin = binFunc(N);
-        console.log(bin);
         // Find first 1 (index)
         let firstIndex = bin.indexOf(1);
         let i = firstIndex;
@@ -54,7 +39,6 @@ if(Number.isInteger(N)){
             binaryGap = newGap;
             }
             //make the second index the new starting point for the calculation
-            console.log(binaryGap, firstIndex, secondIndex);
             firstIndex = secondIndex;     
         }
     }
@@ -69,5 +53,5 @@ return binaryGap;
 }
 
 gap = solution(5);
-console.log(gap);
+
 </script>
