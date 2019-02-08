@@ -1,0 +1,53 @@
+<script>
+    // declare global variables
+    const minN = 1;
+    const maxN = 2147483647;
+
+    // Convert integer to binary
+    const binFunc = (N) => N.toString(2);
+
+    const calcSecondIndex = (N, firstIndex) => N.indexOf(1, firstIndex + 1);
+
+    // calculate bin gap by subtracting the indices
+    const calcBinaryGap = (firstIndex, secIndex, binaryGap) => {
+        //calculate the gap size
+        const newGap = secIndex - firstIndex - 1;
+        // overwrite if it is bigger than the previouse one
+        if (newGap > 0 && binaryGap < newGap) {
+            binaryGap = newGap;
+        }
+        return binaryGap;
+    }
+
+    // go through the array revursively to find the binary gap
+    const findBiggestGap = (bin, firstIndex, binaryGap) => {
+        // get the index of the second 1
+        let secondIndex = calcSecondIndex(bin, firstIndex);     
+        // exit condition for recursive function 
+        if (secondIndex < 0 || firstIndex <0) {
+         return binaryGap;
+        }
+        else{
+        // calculate binary gap and overwrite the old value
+        binaryGap = calcBinaryGap(firstIndex, secondIndex, binaryGap);
+
+        //recursive approach to go through the array. make the second index the new starting point for the calculation
+        return findBiggestGap(bin,secondIndex, binaryGap);
+        }
+    }
+
+    let solution = (N) => {
+        // first check if input N is integer and in the given interval 
+        if (Number.isInteger(N) && (N => minN && N <= maxN)) {
+                //convert N to a binary Number
+                const bin = binFunc(N);
+                // find biggest binary gap 1.argument: binary number, 2nd argument : the first index of the number 1 in the binary number, 3rd argument: initial binaryGap of the size 0
+                return findBiggestGap(bin, bin.indexOf(1), 0);
+        } 
+        return 'Input has to be an integer and between ' +minN +'and ' +maxN;
+    }
+
+    gap = solution(66561);
+    console.log(gap);
+
+</script>
