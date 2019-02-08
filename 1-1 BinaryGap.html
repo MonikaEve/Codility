@@ -16,41 +16,40 @@ let calcSecondIndex = (N, firstIndex) => {
 let calcBinaryGap = (firstIndex, secIndex) => secIndex - firstIndex -1;
 
 let solution = (N) => {
-// first check if input is integer
-if(Number.isInteger(N)){
-    // Check if int is in the given interval 
-    if(N => minN && N <= maxN){
-        bin = binFunc(N);
-        // Find first 1 (index)
-        let firstIndex = bin.indexOf(1);
-        let i = firstIndex;
-        // repeat until the last one was found
-        while(i < bin.length){
-        // get the index of the second one
-        let secondIndex =  calcSecondIndex(N, firstIndex);
-        // break loop if no second 1 was found
-        if(secondIndex < 0 ){
-            break;
+    // first check if input is integer
+    if (Number.isInteger(N)) {
+       // Check if int is in the given interval 
+       if (N => minN && N <= maxN) {
+           bin = binFunc(N);
+           // Find first 1 (index)
+           let firstIndex = bin.indexOf(1);
+           let i = firstIndex;
+           // repeat until the last one was found
+           while (i < bin.length) {
+                 // get the index of the second one
+                 let secondIndex = calcSecondIndex(N, firstIndex);
+                 // break loop if no second 1 was found
+                 if (secondIndex < 0) {
+                     break;
+                 }
+                 // calculate bin gap 
+                 let newGap = calcBinaryGap(firstIndex, secondIndex);
+                 // if calculated bin gap is bigger than one or bigger than the current bingap
+                 if (newGap > 0 && binaryGap < newGap) {
+                     binaryGap = newGap;
+                 }
+                 //make the second index the new starting point for the calculation
+                 firstIndex = secondIndex;
+                 i++;
+                 }
+            } else {
+                return 'N has to be between 1 and 2,147,483,647';
+               }
+        } else {
+            return 'Input is not an integer';
         }
-        // calculate bin gap 
-        let newGap = calcBinaryGap(firstIndex, secondIndex);
-            // if calculated bin gap is bigger than one or bigger than the current bingap
-            if(newGap >0 && binaryGap < newGap){
-            binaryGap = newGap;
-            }
-            //make the second index the new starting point for the calculation
-            firstIndex = secondIndex;     
-        }
+        return binaryGap;
     }
-   else{
-       return 'N has to be between 1 and 2,147,483,647';
-   }
-}
-else{
-    return 'Input is not an integer';
-}
-return binaryGap;
-}
 
 gap = solution(5);
 
