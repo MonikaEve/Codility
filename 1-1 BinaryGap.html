@@ -1,6 +1,5 @@
 <script>
 // declare global variables
-let binaryGap = 0;
 const minN = 1;
 const maxN = 2147483647;
 
@@ -17,6 +16,7 @@ let solution = (N) => {
     if (Number.isInteger(N)) {
        // Check if int is in the given interval 
        if (N => minN && N <= maxN) {
+           let binaryGap = 0;
            bin = binFunc(N);
            // Find first 1 (index)
            let firstIndex = bin.indexOf(1);
