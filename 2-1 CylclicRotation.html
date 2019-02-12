@@ -1,0 +1,46 @@
+<script>
+// declare min max values here, so in case the min max values are used in several functions and need to be changed later, 
+// only one entry has to be changed.
+const minA = -1000;
+const maxA = 1000;
+const minN = 0;
+const maxN = 100;
+
+//Check if K or the length of A (N) is in the interval interval of 0...100, pass min max values as arguments for orthogonality
+const checkIfNInInterval = (aLength, K, min, max) => K <= max && aLength <= max && K >= min && aLength >= min;
+//Check if every element of A is in the given interval. I'm using a for loop over .map(), 
+//because .map returns a copy of the array and therefore .map should only be used if the copy will be used later
+//, pass min max values as arguments for orthogonality
+const checkIfAInInterval = (A, inInterval, min, max) => {
+    for(let i = 0; i<A.length; i++){
+        if( Number.isInteger(A[i]) && (A[i] >= max || A[i] < min)){
+            inInterval = false;
+        }
+    }
+    return inInterval;
+}
+// get index to split the array from
+const getIndexForSplittingArray = (aLength, K) => aLength >K ? aLength - K: getIndexForSplittingArray(aLength, K-aLength);
+//split array and move the end to the front
+const rotateArray = (A, index) => {
+    //get the last elements starting from K
+    const elementsFromK = A.slice(index);
+    //get all elements until index = K
+    const elementsToK = (A.slice(0, index));
+    return elementsFromK.concat(elementsToK);
+}
+ //Check both N and A if they are integer values!
+ // K >= case causes error so if K is bigger than the number of array elements
+function solution (A,K){
+    if(Number.isInteger(K) && A.length >0 && checkIfNInInterval(A.length, K, minN, maxN) && checkIfAInInterval (A, true, minA, maxA)){
+        if(A.length === K || A.length === 1) {
+            return A;
+        }
+        const index = getIndexForSplittingArray(A.length, K);
+        return rotateArray(A, index);
+    }
+    return A;
+}
+
+console.log(solution([3,4,5,7,9], 3));
+</script>
