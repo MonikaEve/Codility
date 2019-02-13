@@ -1,0 +1,23 @@
+<script>
+//interval for X, Y and D
+const minGl= 1;
+const maxGl = 1000000000;
+
+// reusable function to check if the integer is in interval
+const checkInterval = (array, min, max) => array.every(element => (element >= min && element <= max ) === true);
+
+// reusable function to check if input is an integer
+const checkInteger = (input) => input.every(element => Number.isInteger(element) === true);
+
+function solution (X, Y, D) {
+    //exit criteria, interval and Integer check. I think the integer check could be omitted, 
+    //because the interval check returns false if string in array.
+    if(checkInteger([X, Y, D]) === false || checkInterval([X,Y,D], minGl, maxGl) === false || X > Y){
+        return 0;
+    }
+    // calculate the number of steps 
+    // The Math.ceil() function returns the smallest integer greater than or equal to a given number.
+    return Math.ceil((Y-X)/D);
+}
+solution(10, 85, 30);
+</script>
