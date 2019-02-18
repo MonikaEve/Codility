@@ -1,0 +1,26 @@
+<script>
+// use global variables for interval 
+const minGl = 0;
+const maxGl = 1000000;
+
+//check if N is in interval
+const checkInterval = (element, min, max) => element >= min && element <= max;
+//check if every element of A is in given interval
+const checkAElements = (array, min, max) => Math.min(...array) >= min && Math.max(...array) <= max;
+
+function solution(A) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    if(checkInterval(A.length, minGl, maxGl) === true && checkAElements(A, 1, A.length+1)){
+    //calculate the sum of each element in the array
+       const actualSum = A.reduce((a,b) => a+b,0);
+    // calculate the sum of each element in an array, that only consists of consecutive numbers
+       const n = A.length +1;
+       const expectedSum = n*(n +1)/2;
+       // get the missing number
+       const missingNumber = expectedSum - actualSum;
+      // if the missing number is smaller than 0, there are duplicates in the array and the funciton will return 0
+       return missingNumber < 0 ? 0 : missingNumber;
+        }
+        return 0;
+ }
+</script>
