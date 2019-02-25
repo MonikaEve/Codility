@@ -1,0 +1,22 @@
+<script>
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+const minGlN = 1;
+const maxGlN = 100000;
+const maxGlA = 1000000000;
+
+//check if N is in interval
+const checkIntervalN = (n, min, max) => n >=min && n <= max;
+// check if there are duplicate Numbers in the array
+const checkDuplicates = (a) => a.length === new Set(a).size
+
+function solution(A) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    if(checkIntervalN(A.length, minGlN, maxGlN)){
+        if(Math.min(...A) === 1 && Math.max(...A) <= maxGlA && Math.max(...A) === A.length && checkDuplicates(A)){
+           return 1;
+        }
+        return 0;
+    }
+}
+</script>
