@@ -1,0 +1,67 @@
+<script>
+
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+//global variable for intervals of N, X and each element of A
+const minGl = 1;
+const maxGl = 100000;
+
+//check if N and X are inside the interval
+const checkInterval = (arr, min, max) => arr.every(el => el >= min && el <=max)
+
+//check how many duplicates are in the first array
+const getNumOfDuplicats = (arr) => arr.length - new Set(arr).size
+//calculate missing number in permutation
+const getMissingNumber = (arr) => ((arr.length+1)*(arr.length +2)/2) - arr.reduce((a,b) => a+b)
+//check if array is permutation
+const permCheck = (arr) => Math.min(...arr) === 1 && Math.max(...arr) <= maxGl && Math.max(...arr) === arr.length;
+
+const func = (arr, originalA, originalX) => {
+    //check how many duplicates are contained in the first half of the array
+        //const numOfDuplicates = getNumOfDuplicats(arr);
+        console.log(arr, originalA)
+        console.log([... new Set(arr)].concat([...originalA].splice(arr.length, 1)));
+        //check if the array is a permutation
+        if(permCheck([...new Set(arr)])){
+            return originalA.indexOf(arr[arr.length-1]);
+        }
+        /*if(numOfDuplicates === 0 && Math.min(...arr) ===1 && Math.max(...arr) === arr.length){
+            console.log(arr[arr.length-1], originalA.indexOf(arr[arr.length-1]))
+            return originalA.indexOf(arr[arr.length-1]);
+        }*/
+        //one duplicate: calculate the missing number with sum - n(n+1)/2
+      /*  else if (numOfDuplicates === 1 || Math.max(...arr) === arr.length +1){
+            const missingNumber = getMissingNumber([...new Set(arr)]);
+            //find the missing value after index = X and return the index 
+            return originalA.indexOf(missingNumber,originalX);
+        }
+        else if(Math.max(...arr) > arr.length +1){
+           // return func([... new Set(arr)].concat([...originalA].splice(originalX, (Math.max(...arr - Math.min(...arr))))), originalA, originalX)
+           return func([...originalA].splice(originalX), originalA, originalX)
+        }*/
+       // else if(numOfDuplicates > 0){
+         
+        return func([... new Set(arr)].concat([...originalA].splice(arr.length, 1)), originalA, originalX)
+       // }
+       // return func([... new Set(arr)].concat([...originalA].splice(arr.length, 1)), originalA, originalX)
+}
+function solution(X, A) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    if(checkInterval([A.length, X], minGl, maxGl) &&checkInterval(A, minGl, maxGl) && X <= A.length){
+        //split array where X occurs for the first time in the array
+        //const spliced = [...A].splice(0,A.indexOf(X)+1)
+        //console.log(spliced)
+        //if not splice of with one more index, do this until X is in the array
+        //remove duplicates and check if permutation
+        //if one missing value => calculate and get index
+        //if more than one missing value repeat function 
+        return func([...A].splice(0,A.indexOf(X)+1), A, X);
+
+        //find index of missing value in the second subindex and return the index
+        //if current index is bigger than the previous found index, overwrite old index
+        //return index
+    }
+    return 0;
+}
+console.log(solution(3,[1,1,3,4,5,2]));
+</script>
