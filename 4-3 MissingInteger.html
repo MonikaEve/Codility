@@ -1,0 +1,52 @@
+<script>
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+// global variables for interval
+const minGlN = 1;
+const maxGlN = 100000;
+const minGlA = -1000000;
+const maxGlA = 1000000;
+
+//check if N is in interval
+const checkIntervalN = (n, min , max) => n >= min && n <= max;
+// check if every element of A is in inteval
+const checkIntervalA = (a, min, max) => Math.min(...a) >= min && Math.max(...a) <= max;
+//Check if numbers are consecutive
+const consNumCheck = (arr) => Math.max(...arr) - Math.min(...arr) +1 === arr.length;
+//Split array into two parts
+const splitArrayInTwo = (arr) => [arr.splice(0, Math.floor(arr.length/2)), arr];
+//Find the smallest missing Integer
+const findSmallestInt = (arr) => {
+    const splitArr = splitArrayInTwo(arr);
+        //if the first half of the array (splitArr[0]) consists of consecutive numbers, check second half (splitArr[1])
+        if(consNumCheck(splitArr[0])){
+            // if the second half consists of consecutive numbers OR if the biggest value of the first half and the smallest value on the second half are not consecutive
+            if(consNumCheck(splitArr[1]) || (Math.max(...splitArr[0])+1 != Math.min(...splitArr[1]))){
+                return Math.max(...splitArr[0]) +1;
+            }
+            else{
+                return findSmallestInt(splitArr[1]);
+            }
+        }
+    //if the first half does not consecutive numbers, continue with that half
+    return findSmallestInt(splitArr[0]);
+}
+
+function solution(A) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    if(checkIntervalN(A.length, minGlN, maxGlN) && checkIntervalA(A, minGlA, maxGlA)){
+        //remove unncessary elements, like nevative values or duplicates. Sort the array to speed up the search for the smallest missing integer
+        const array = [...new Set(A)].filter(el => el > 0).sort((a,b) => a - b);
+        //first check: if the original array only contained negative numbers, the mutated array will be empty. second check: If all values are positive but bigger than one. The function should return one in both cases, as one is the smallest missing integer
+        if(array.length ===0 || Math.min(...array) > 1){
+            return 1;
+        }
+        //check if the array consists of only consecutive numbers. If not, find the smallest integer recursively
+        else if (consNumCheck(array) === false){
+        return findSmallestInt(array);
+    }
+     return Math.max(...array) +1;
+    }
+    return 0;
+}
+</script>
