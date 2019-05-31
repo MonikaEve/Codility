@@ -1,3 +1,17 @@
+/*
+ALGORITHM:
+STEP1: Start
+STEP2: Store min and max values of the input integer in global variables. These variables will be used for function input
+STEP3: Check if input is inside min and max values defined in STEP2
+STEP4: Convert int to binary
+STEP5: Write a function to find the binary gap; input: binary, first index of 1, binarygap = 0 initially
+STEP6: Calculate second index of 1
+STEP7: If first or second index < 0 => leave function and return the binary gap. Else continue with STEP8
+STEP8: Calculate the binary gap: 2nd index (from STEP6) - first index (from function input) 
+STEP9: if binary gap bigger from STEP8 is bigger than the previous binary gap (function input) then overwrite the binaryGap value
+STEP10: call function from STEP5 to find the binary gap (recursive approach)
+*/
+
 <script>
     // declare global variables
     const minN = 1;
@@ -19,7 +33,7 @@
         return binaryGap;
     }
 
-    // go through the array revursively to find the binary gap
+    // go through the array recursively to find the binary gap
     const findBiggestGap = (bin, firstIndex, binaryGap) => {
         // get the index of the second 1
         let secondIndex = calcSecondIndex(bin, firstIndex);     
